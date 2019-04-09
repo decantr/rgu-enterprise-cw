@@ -1,41 +1,39 @@
 <?
-
-require_once "config.php";
-
 if ( isset( $_COOKIE["session"] ) ) {
 	header("Location: /index.php");
 	exit;
 }
 
-if ( empty( trim( $_POST["username"] ) || empty( trim( $_POST["password"] ) ) {
-	$error = true
-	exit
+require_once "config.php";
+$error=false;
+
+// if it is a post request
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+if ( empty( trim( $_POST["username"] ) ) || empty( trim( $_POST["password"] ) ) ) {
+	$error = true;
+	exit;
 }
 
-$request = "SELECT `id` FROM `users` WHERE `username` = :username";
+$request = "select `id` from `users` where `username` = :username";
 
-$statement = $database->prepare($request);
+$statement = $db->prepare($request);
 $statement->execute( [":username" => $_POST["username"]] );
 
 if ( $statement->rowCount() != 0 ){
 	$error = true;
-	exit
+	exit;
 }
 
-$request = "insert into `user` (`username`, `password`) values ( :username, :password)";
+$request = "insert into `users` (`username`, `password`) values ( :username, :password)";
 
-$statement = $database->prepare($request);
-$statement->execute( [":username" => $username, ":password" => $password] );
-
+$statement = $db->prepare($request);
+$statement->execute( [":username" => $_POST["username"], ":password" => $_POST["password"]] );
+}
 ?>
 
 <form action="" method="POST">
 <h3>register</h3>
-<? if (	$error ) { ?>
-	invalid username or password
-<? } else { ?>
-	user created
-<? } ?>
 <span>
 	<label for="username">username</label>
 	<input type="text" name="username">
