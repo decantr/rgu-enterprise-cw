@@ -12,18 +12,16 @@ if (isset($_COOKIE["session"])) {
 <script>
 function getFeed() {
 
-	feedreq=new XMLHttpRequest()
-	feedreq.onreadystatechange = function() {
-		if ( this.readyState == 4 && this.status == 200 ) {
+fetch( "feedreq.php" )
+	.then( (response) => {
+		return response.json()
+	})
+	.then( (res) => {
+		display(res)
+	})
 
-		let jsonResponse = JSON.parse(this.responseText)
-
-		document.getElementById("placeholder").innerHTML=jsonResponse.toString()
-		}
-	}
-	feedreq.open("GET","feedreq.php",true)
-	feedreq.send()
 }
+
 </script>
 
 <!-- header -->
@@ -44,8 +42,7 @@ function getFeed() {
 	<td align="right"><b>Star</b></td>
 	<td align="right"><b>Hide</b></td>
 </tr>
-</thead><tbody>
-<div id="placeholder"></div>
+</thead><tbody id="posttable" >
 <tr>
 	<td></td>
 	<td id="bottomText" colspan="4">RSS-feed will be displayed here [...]</td>
