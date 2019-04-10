@@ -10,13 +10,20 @@ if (isset($_COOKIE["session"])) {
 <!-- js     -->
 <link rel="stylesheet" type="text/css" href="style.css" />
 <script>
-feedreq=new XMLHttpRequest();
-feedreq.onreadystatechange=() => {
-	if (this.status==200)
-		document.getElementById("placeholder").innerHTML=this.responseText;
+function getFeed() {
+
+	feedreq=new XMLHttpRequest()
+	feedreq.onreadystatechange = function() {
+		if ( this.readyState == 4 && this.status == 200 ) {
+
+		let jsonResponse = JSON.parse(this.responseText)
+
+		document.getElementById("placeholder").innerHTML=jsonResponse.toString()
+		}
+	}
+	feedreq.open("GET","feedreq.php",true)
+	feedreq.send()
 }
-feedreq.open("GET","feedreq.php",true);
-feedreq.send();
 </script>
 
 <!-- header -->
@@ -28,6 +35,7 @@ feedreq.send();
 <? if (! $loggedin) { ?>
 	please log in <a href="login.php">here</a>
 <? } ?>
+<button onclick="getFeed()">refresh</button>
 <table><thead>
 <tr>
 	<td><b>Date</b></td>
