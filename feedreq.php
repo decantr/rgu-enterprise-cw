@@ -1,5 +1,6 @@
 <?
 
+// post class to hold the posts we scrape
 class Post {
 	public $title;
   public $date;
@@ -7,10 +8,10 @@ class Post {
 	public $desc;
 
 	public function __construct( $t, $d, $l, $c ) {
-		$this->title = $t;
+		$this->title = (string) $t;
 		$this->date = $d;
-		$this->link = $l;
-		$this->desc = $c;
+		$this->link = (string) $l;
+		$this->desc = (string) $c;
 	}
 }
 
@@ -19,15 +20,19 @@ $url = 'lukesmith.xyz/rss.xml';
 $feed = simplexml_load_file($url);
 $posts = array();
 
+// iterate through all of the items
 foreach ($feed->channel->item as $item) {
+
 	$post = new Post(
-		(string) $item->title,
+		$item->title,
 		(strtotime( $item->pubDate) ),
-		(string) $item->link,
-		(string) $item->description
+		$item->link != "" ? $item->link : $item->guid,
+		$item->description
 	);
 	$posts[] = $post;
+
 }
 
-echo $posts[0]->title;
+// return the array of posts as a json object
+echo json_encode($posts);
 ?>
