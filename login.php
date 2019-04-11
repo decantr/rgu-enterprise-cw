@@ -11,23 +11,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 require_once "config.php";
 
-if ( empty( trim( $_POST["username"] ) ) || empty( trim( $_POST["password"] ) ) ) {
-	$error = "Enter a valid username and password";
-	return;
-}
+if ( empty( trim( $_POST["username"] ) ) ) {
+	$error = "Username cannot be empty";
+} else if ( empty( trim( $_POST["password"] ) ) ) {
+	$error = "Password cannot be empty";
+} else {
 
-$request = "select `username`, `password`, `seen` from `users` where `username` = :username";
-$statement = $db->prepare($request);
-$statement->execute([":username" => $_POST["username"]]);
+	$request = "select `username`, `password`, `seen` from `users` where `username` = :username";
+	$statement = $db->prepare($request);
+	$statement->execute([":username" => $_POST["username"]]);
 
 if ( $statement->rowCount() == 0 ){
-	$error = "No such user";
-	return;
-}
+	$error = "Invalid Username or Password";
+	sleep(1);
+} else {
 
 $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-if ( $_POST["password"] == $result["password"] ) {
+if ( $_POST["password"] != $result["password"] ) {
+	$error = "Invalid Password";
+	sleep(1);
+} else {
 	$update = $db->prepare("UPDATE users SET seen = NOW() WHERE `username` = :username");
 	$update->execute([":username" => $_POST["username"]]);
 
@@ -39,6 +43,9 @@ if ( $_POST["password"] == $result["password"] ) {
 	header("location: /");
 }
 }
+}
+}
+$error = $error . "<br />";
 ?>
 
 <link rel="stylesheet" type="text/css" href="style.css" />
