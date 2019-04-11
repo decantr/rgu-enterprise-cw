@@ -4,7 +4,7 @@ if ( isset( $_SESSION["token"] ) ) {
 	header("location: /index.php");
 }
 
-$error = "";
+$error = $redirect = "";
 
 // if this is a login request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -44,6 +44,11 @@ if ( $_POST["password"] != $result["password"] ) {
 }
 }
 }
+} else {
+	if ( ! empty($_SESSION['username']) && empty ( $_SESSION['token'] ) ) {
+		$redirect = $_SESSION['username'];
+		$_SESSION['username'] = '';
+	}
 }
 $error = $error . "<br />";
 ?>
@@ -57,7 +62,7 @@ $error = $error . "<br />";
 <span class="error"><?php echo $error ?></span>
 <span>
 	<label for="username">Username</label>
-	<input type="text" name="username">
+	<input value="<? echo $redirect; ?>" type="text" name="username">
 </span>
 <span>
 	<label for="password">Password</label>
