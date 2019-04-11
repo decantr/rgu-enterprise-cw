@@ -32,10 +32,7 @@ if ( $_POST["password"] == $result["password"] ) {
 	$_SESSION["seen"] = $results["seen"];
 	$_SESSION["username"] = $username;
 
-	setcookie("session", $token);
-	setcookie("seen", $seen);
-	header("Location: /");
-	exit();
+	header("location: /");
 }
 }
 
