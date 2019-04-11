@@ -52,9 +52,10 @@ function display(content) {
 <!-- content -->
 
 <? if (! $loggedin) { ?>
-	please log in <a href="login.php">here</a>
-<? } ?>
+	please <a href="login.php">login</a> or <a href="register.php">register</a>
+<? } else { ?>
 <button onclick="getFeed()">refresh</button>
+<? } ?>
 <table><thead>
 <tr>
 	<td><b>Date</b></td>
