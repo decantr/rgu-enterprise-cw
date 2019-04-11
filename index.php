@@ -47,13 +47,11 @@ function display(content) {
 
 <!-- header -->
 
-<h5>under const</h5>
+<? include("header.php")?>
 
 <!-- content -->
 
-<? if (! $loggedin) { ?>
-	please <a href="login.php">login</a> or <a href="register.php">register</a>
-<? } else { ?>
+<? if ( $loggedin ) { ?>
 <button onclick="getFeed()">refresh</button>
 <? } ?>
 <table><thead>
