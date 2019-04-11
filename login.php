@@ -26,9 +26,9 @@ if ( $statement->rowCount() == 0 ){
 	sleep(1);
 } else {
 
-$result = $statement->fetch(PDO::FETCH_ASSOC);
+	$result = $statement->fetch(PDO::FETCH_ASSOC);
 
-if ( $_POST["password"] != $result["password"] ) {
+if ( ! password_verify( trim ( $_POST["password"] ), $result["password"] ) ) {
 	$error = "Invalid Password";
 	sleep(1);
 } else {
