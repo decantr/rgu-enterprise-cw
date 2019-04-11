@@ -4,13 +4,16 @@ if ( isset( $_SESSION["token"] ) ) {
 	header("location: /index.php");
 }
 
+$error = "";
+
 // if this is a login request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 require_once "config.php";
 
 if ( empty( trim( $_POST["username"] ) ) || empty( trim( $_POST["password"] ) ) ) {
-	exit;
+	$error = "Enter a valid username and password";
+	return;
 }
 
 $request = "select `username`, `password`, `seen` from `users` where `username` = :username";
@@ -18,7 +21,8 @@ $statement = $db->prepare($request);
 $statement->execute([":username" => $_POST["username"]]);
 
 if ( $statement->rowCount() == 0 ){
-	exit;
+	$error = "No such user";
+	return;
 }
 
 $result = $statement->fetch(PDO::FETCH_ASSOC);
@@ -35,18 +39,24 @@ if ( $_POST["password"] == $result["password"] ) {
 	header("location: /");
 }
 }
-
 ?>
 
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+<? include("header.php") ?>
+
 <form action="" method="POST">
-<h3>login</h3>
+<h1>Login</h1>
+<span class="error"><?php echo $error ?></span>
 <span>
-	<label for="username">username</label>
+	<label for="username">Username</label>
 	<input type="text" name="username">
 </span>
 <span>
-	<label for="password">password</label>
-	<input type="text" name="password">
+	<label for="password">Password</label>
+	<input type="password" name="password" required>
 </span>
 <input type="submit" name="login">
 </form>
+or <a href="register.php">register</a>
+
