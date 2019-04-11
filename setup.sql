@@ -1,8 +1,8 @@
 /*
-DROP TABLE users;
-DROP TABLE feeds;
-DROP TABLE articles;
 DROP TABLE subscriptions;
+DROP TABLE articles;
+DROP TABLE feeds;
+DROP TABLE users;
 */
 
 -- user table
@@ -10,15 +10,15 @@ CREATE TABLE users (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	username VARCHAR(127) NOT NULL UNIQUE,
 	password VARCHAR(255) NOT NULL,
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-	last_login DATETIME
+	created DATETIME DEFAULT CURRENT_TIMESTAMP,
+	seen DATETIME
 );
 
 -- url of the feed
 CREATE TABLE feeds (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   url varchar(255) NOT NULL UNIQUE DEFAULT '',
-	last_updated DATETIME
+	updated DATETIME
 );
 
 -- article table
