@@ -1,47 +1,68 @@
 <? session_start();
 
 if ( isset( $_SESSION["token"] ) ) {
-	header("Location: /index.php");
-	exit;
+	header("location: /");
 }
 
-require_once "config.php";
-$error=false;
+$error = "";
 
 // if it is a post request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-if ( empty( trim( $_POST["username"] ) ) || empty( trim( $_POST["password"] ) ) ) {
-	$error = true;
-	exit;
-}
+require_once "config.php";
 
-$request = "select `id` from `users` where `username` = :username";
+// check if user and password fields are filled
+if ( empty( trim( $_POST["username"] ) ) ) {
+	$error = "Username cannot be empty";
+} else if ( empty( trim( $_POST["password"] ) ) ) {
+	$error = "Password cannot be empty";
+} else if ( strlen( trim($_POST["password"]) ) < 8 ) {
+		$error = "Password must have atleast 8 characters.";
+} else {
 
-$statement = $db->prepare($request);
-$statement->execute( [":username" => $_POST["username"]] );
+	$username = trim( $_POST["username"] );
 
+	$request = "SELECT `id` FROM `users` WHERE `username` = :username";
+
+	$statement = $db->prepare($request);
+	$statement->execute( [":username" => $username] );
+
+// check if user exists
 if ( $statement->rowCount() != 0 ){
-	$error = true;
-	exit;
+	$error = "Username already taken";
+	sleep(1);
+} else {
+
+	$password = password_hash(trim( $_POST["password"] ), PASSWORD_BCRYPT);
+
+	$request = "INSERT INTO `users` (`username`, `password`) VALUES ( :username, :password)";
+
+	$statement = $db->prepare($request);
+	$statement->execute( [":username" => $username, ":password" => $password] );
+	$_SESSION["username"] = $username;
+	header("location: /login.php");
+}
+}
 }
 
-$request = "insert into `users` (`username`, `password`) values ( :username, :password)";
-
-$statement = $db->prepare($request);
-$statement->execute( [":username" => $_POST["username"], ":password" => $_POST["password"]] );
-}
+$error = $error . "<br />";
 ?>
 
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+<? include("header.php") ?>
+
 <form action="" method="POST">
-<h3>register</h3>
+<h1>Register</h1>
+<span class="error"><?php echo $error ?></span>
 <span>
-	<label for="username">username</label>
+	<label for="username">Username</label>
 	<input type="text" name="username">
 </span>
 <span>
-	<label for="password">password</label>
-	<input type="text" name="password">
+	<label for="password">Password</label>
+	<input type="password" name="password" minlength="8" required>
 </span>
 <input type="submit" name="register">
 </form>
+or <a href="login.php">login</a>
