@@ -1,7 +1,7 @@
-<?
-if ( isset( $_COOKIE["session"] ) ) {
-	header("Location: /index.php");
-	exit;
+<? session_start();
+
+if ( isset( $_SESSION["token"] ) ) {
+	header("location: /index.php");
 }
 
 // if this is a login request
@@ -27,8 +27,10 @@ if ( $_POST["password"] == $result["password"] ) {
 	$update = $db->prepare("UPDATE users SET seen = NOW() WHERE `username` = :username");
 	$update->execute([":username" => $_POST["username"]]);
 
-	$token = bin2hex( random_bytes(32) );
-	$seen = $results["seen"];
+	// store data in session variables
+	$_SESSION["token"] = bin2hex( random_bytes(32) );
+	$_SESSION["seen"] = $results["seen"];
+	$_SESSION["username"] = $username;
 
 	setcookie("session", $token);
 	setcookie("seen", $seen);

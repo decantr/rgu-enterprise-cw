@@ -12,7 +12,7 @@
 	</tr>
 	<tr>
 		<td></td>
-		<? if ( ! isset( $_COOKIE["session"] ) ) { ?>
+		<? if ( ! isset( $_SESSION["token"] ) ) { ?>
 				<td>&emsp;&emsp;please <a href="login.php">login</a> or <a href="register.php">register</a></td>
 		<? } else { ?>
 		<td>

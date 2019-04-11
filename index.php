@@ -1,7 +1,7 @@
-<?
+<? session_start();
 
 $loggedin = false;
-if (isset($_COOKIE["session"])) {
+if (isset($_SESSION["token"])) {
 	$loggedin = true;
 }
 
