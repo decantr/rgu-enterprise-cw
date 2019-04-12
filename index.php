@@ -27,15 +27,14 @@ function display(content) {
 	let str = "";
 	let options = {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
-	console.log(content)
 	for ( let i of content ) {
-// TODO : cleanup formatting functions
-		let time = new Date(Date.parse(i.date))
+		// TODO : cleanup formatting functions
+		let time = new Date(Date.parse(i.published))
 		time = time.toLocaleString('en-GB', options)
 		time = time.replace( ',' , '')
 		time = time.replace( '/' , '-' )
 		let title = i.title.replace(/<(?:.|\n)*?>/gm, '').slice(0, 60)
-		let source = i.source.replace(/<(?:.|\n)*?>/gm, '').slice(0, 20)
+		let source = i.feed_id.replace(/<(?:.|\n)*?>/gm, '').slice(0, 20)
 
 		str += "<tr><td>" + time +
 			"</td><td><a href=" +i.link +
