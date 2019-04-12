@@ -1,44 +1,20 @@
 <?
 
-// post class to hold the posts we scrape
-class Post {
-	public $source;
-	public $title;
-  public $date;
-	public $link;
-	public $summary;
-
-	public function __construct( $s, $t, $d, $l, $c ) {
-		$this->source = substr( (string) $s, 0, 32 );
-		$this->title = (string) $t;
-		$this->date = (string) $d;
-		$this->link = (string) $l;
-		$this->summary = substr( (string) $c, 0, 40 );
-	}
-}
+require_once "lib/Article.php";
 
 // function to return the json of the feed
 function getFeed( $feedurl ) {
 $feed = simplexml_load_file($feedurl);
-$posts = array();
+$articles = array();
 $source = (string) $feed->channel->title;
 
 // iterate through all of the items
 foreach ($feed->channel->item as $item) {
-
-	$post = new Post(
-		$source,
-		$item->title,
-		$item->pubDate,
-		$item->link != "" ? $item->link : $item->guid,
-		$item->description
-	);
-	$posts[] = $post;
-
+	array_push( $articles, Article::articleFromItem( $item , $source ) );
 }
 
 // return the array of posts
-return $posts;
+return $articles;
 }
 
 function buildFeed( $quantity ) {

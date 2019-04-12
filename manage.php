@@ -1,7 +1,7 @@
 <? session_start();
 
 require_once "config.php";
-require_once "lib/feeds.php";
+require_once "lib/Feed.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
