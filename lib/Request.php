@@ -28,7 +28,7 @@ while ( $row = $statement->fetch(PDO::FETCH_ASSOC) )
 return $feeds;
 }
 
-function getArticles() {
+function getTopArticles() {
 	require_once "Article.php";
 
 	$subscriptions = getSubscribedFeeds();
