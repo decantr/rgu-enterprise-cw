@@ -1,6 +1,7 @@
 <? session_start();
 
 require_once "config.php";
+require_once "lib/feeds.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -18,24 +19,26 @@ if ( $exists->rowCount() != 0 ) {
 	sleep(1);
 } else {
 
-	$feed = simplexml_load_file($feedurl);
-	$feed = $feed->channel;
-	$url = $feed->link != "" ? $feed->link : $feed->guid;
+	//$feed = new Feed($feedurl);
+	$feed = Feed::feedFromUrl($feedurl);
+	echo $feed->title;
 
 	$request = "INSERT INTO `feeds` (`title`, `description`, `url`) VALUES ( :title, :description, :url)";
 	$statement = $db->prepare($request);
-	$statement->execute( [":title" => $feed->title, ":description" => $feed->description, ":url" => $url] );
+	$statement->execute( [":title" => $feed->title, ":description" => $feed->summary, ":url" => $feed->link] );
 }
 }
 } else {
 
-	$request = "SELECT * FROM feeds";
-	$statement = $db->prepare($request);
+	$statement = $db->prepare("SELECT * FROM feeds");
 	$statement->execute();
 
-// TODO : make this a class
+	$feeds = array();
 
-	echo $statement;
+	while ( $row = $statement->fetch(PDO::FETCH_ASSOC) )
+		array_push( $feeds, Feed::feedFromRow($row) );
+
+	echo json_encode($feeds);
 
 }
 
