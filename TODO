@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# TODO : check for valid url in subscriptions
+# TODO : autocomplete search in the subs box
