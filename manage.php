@@ -16,10 +16,7 @@ if ( empty ( $feedurl ) ) {
 	$exists = $db->prepare("SELECT * FROM feeds WHERE `link` = :link LIMIT 0, 1");
 	$exists->execute( [":link" => $feedurl ] );
 if ( $exists->rowCount() != 0 ) {
-	while ( $row = $exists->fetch(PDO::FETCH_ASSOC) ) {
-		$feed = Feed::feedFromRow( $row );
-	}
-
+	$feed = Feed::feedFromRow( $exists->fetch(PDO::FETCH_ASSOC) );
 } else {
 	$feed = Feed::feedFromUrl( $feedurl );
 
@@ -32,20 +29,18 @@ if ( $exists->rowCount() != 0 ) {
 // test if the feed is already subscribed
 $exists = $db->prepare( "SELECT * FROM subscriptions WHERE user_id = :user_id AND feed_id = :feed_id" );
 $exists->execute([":user_id" => $_SESSION["user_id"], ":feed_id" => $feed->id]);
-echo "hello " . $exists->rowCount();
 
 if ( $exists->rowCount() != 0 ) {
-	$error = "already subscribed";
+	$error = "Already subscribed";
 } else {
 	// insert the subscription into the db
 	$request = "INSERT INTO `subscriptions` (`user_id`, `feed_id`) VALUES (:user_id, :feed_id)";
 	$statement = $db->prepare( $request );
 	$statement->execute([":user_id" => $_SESSION["user_id"], ":feed_id" => $feed->id]);
-	$error = "Feed successfully created";
+	$error = "Subscribed to " . $feed->title . "!";
 }
 }
 }
-//$error = "Feed already exists at " . (string) $exists["id"];
 $error = $error == "" ? $error : $error . "<br />";
 ?>
 

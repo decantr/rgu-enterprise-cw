@@ -2,3 +2,5 @@
 
 # TODO : check for valid url in subscriptions
 # TODO : autocomplete search in the subs box
+# TODO : set last updated on creation
+# TODO : add final check to feed creation before insert incase of network failure
