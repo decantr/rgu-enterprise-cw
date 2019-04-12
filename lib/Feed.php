@@ -2,6 +2,7 @@
 
 // post class to hold the posts we scrape
 class Feed {
+
 	public $id;
 	public $title;
 	public $summary;
