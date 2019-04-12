@@ -1,11 +1,9 @@
 <? session_start();
 
-require_once "config.php";
+require_once "lib/config.php";
 require_once "lib/Feed.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-echo "POST";
 
 $feedurl = trim ( $_POST["feedurl"] );
 
@@ -28,20 +26,7 @@ if ( $exists->rowCount() != 0 ) {
 	$statement->execute( [":title" => $feed->title, ":summary" => $feed->summary, ":link" => $feed->link] );
 }
 }
-} else {
-
-	$statement = $db->prepare("SELECT * FROM feeds");
-	$statement->execute();
-
-	$feeds = array();
-
-	while ( $row = $statement->fetch(PDO::FETCH_ASSOC) )
-		array_push( $feeds, Feed::feedFromRow($row) );
-
-	echo json_encode($feeds);
-
 }
-
 ?>
 
 <!--	imports	-->
@@ -56,11 +41,11 @@ if ( $exists->rowCount() != 0 ) {
 <body onLoad="getSubscriptions()">
 <table><thead>
 <tr>
-	<td><b>Last Activity</b></td>
+	<td><b>Last Published</b></td>
 	<td><b>Title</b></td>
-	<td><b>Description</b></td>
-	<td align="right"><b>Subscribe</b></td>
 	<td align="right"><b>Feed ID</b></td>
+	<td align="right"><b>Star</b></td>
+	<td align="right"><b>Remove</b></td>
 </tr>
 </thead><tbody id="posttable" >
 <tr>

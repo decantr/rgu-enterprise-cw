@@ -10,7 +10,7 @@ class Feed {
 	public $updated;
 
 	public function __construct () {
-		$this->id = $this->title = $this->summary = $this->link = "";
+		$this->id = $this->title = $this->summary = $this->link = $this->updated = "";
 	}
 
 	// the actual constructor

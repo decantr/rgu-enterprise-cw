@@ -9,7 +9,7 @@ $error = $redirect = "";
 // if this is a login request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-require_once "config.php";
+require_once "lib/config.php";
 
 if ( empty( trim( $_POST["username"] ) ) ) {
 	$error = "Username cannot be empty";
@@ -38,7 +38,7 @@ if ( ! password_verify( trim ( $_POST["password"] ), $result["password"] ) ) {
 	// store data in session variables
 	$_SESSION["token"] = bin2hex( random_bytes(32) );
 	$_SESSION["seen"] = $results["seen"];
-	$_SESSION["username"] = $username;
+	$_SESSION["username"] = $_POST["username"];
 
 	header("location: /");
 }

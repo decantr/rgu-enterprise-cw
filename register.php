@@ -9,7 +9,7 @@ $error = "";
 // if it is a post request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-require_once "config.php";
+require_once "lib/config.php";
 
 // check if user and password fields are filled
 if ( empty( trim( $_POST["username"] ) ) ) {

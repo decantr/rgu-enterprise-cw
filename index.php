@@ -19,7 +19,7 @@ if (isset($_SESSION["token"])) {
 <body onLoad="getFeed()">
 <table><thead>
 <tr>
-	<td><b>Date</b></td>
+	<td><b>Published</b></td>
 	<td><b>Article Title</b></td>
 	<td><b>Channel</b></td>
 	<td align="right"><b>Star</b></td>
