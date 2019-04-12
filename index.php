@@ -27,16 +27,20 @@ function display(content) {
 	let str = "";
 	let options = {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
+	console.log(content)
 	for ( let i of content ) {
+// TODO : cleanup formatting functions
 		let time = new Date(Date.parse(i.date))
 		time = time.toLocaleString('en-GB', options)
-		let summary = i.desc.replace(/<(?:.|\n)*?>/gm, '').slice(0, 20) + "..."
-		let title = i.title.replace(/<(?:.|\n)*?>/gm, '').slice(0, 64)
+		time = time.replace( ',' , '')
+		time = time.replace( '/' , '-' )
+		let title = i.title.replace(/<(?:.|\n)*?>/gm, '').slice(0, 60)
+		let source = i.source.replace(/<(?:.|\n)*?>/gm, '').slice(0, 20)
 
 		str += "<tr><td>" + time +
 			"</td><td><a href=" +i.link +
 			">" + title + "</a></td><td>" +
-			summary + "</td><td align=\"right\">" +
+			source + "</td><td align=\"right\">" +
 			"Star</td><td align=\"right\">Hide</td></tr>"
 	}
 
@@ -50,14 +54,11 @@ function display(content) {
 <? include("header.php")?>
 
 <!-- content -->
-
-<? if ( $loggedin ) { ?>
-<button onclick="getFeed()">refresh</button>
-<? } ?>
+<body onLoad="getFeed()">
 <table><thead>
 <tr>
 	<td><b>Date</b></td>
-	<td><b>Description</b></td>
+	<td><b>Article Title</b></td>
 	<td><b>Channel</b></td>
 	<td align="right"><b>Star</b></td>
 	<td align="right"><b>Hide</b></td>
@@ -68,4 +69,7 @@ function display(content) {
 	<td id="bottomText" colspan="4">RSS-feed will be displayed here [...]</td>
 </tr>
 </tbody></table>
-
+<? if ( $loggedin ) { ?>
+&emsp;&emsp;<a href="#" onclick="getFeed()">refresh</a>
+<? } ?>
+</body>

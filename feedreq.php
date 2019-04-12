@@ -2,16 +2,18 @@
 
 // post class to hold the posts we scrape
 class Post {
+	public $source;
 	public $title;
   public $date;
 	public $link;
-	public $desc;
+	public $summary;
 
-	public function __construct( $t, $d, $l, $c ) {
+	public function __construct( $s, $t, $d, $l, $c ) {
+		$this->source = substr( (string) $s, 0, 32 );
 		$this->title = (string) $t;
 		$this->date = (string) $d;
 		$this->link = (string) $l;
-		$this->desc = (string) $c;
+		$this->summary = substr( (string) $c, 0, 40 );
 	}
 }
 
@@ -19,11 +21,13 @@ class Post {
 function getFeed( $feedurl ) {
 $feed = simplexml_load_file($feedurl);
 $posts = array();
+$source = (string) $feed->channel->title;
 
 // iterate through all of the items
 foreach ($feed->channel->item as $item) {
 
 	$post = new Post(
+		$source,
 		$item->title,
 		$item->pubDate,
 		$item->link != "" ? $item->link : $item->guid,
