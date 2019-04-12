@@ -16,7 +16,7 @@
 				<td>&emsp;&emsp;please <a href="login.php">login</a> or <a href="register.php">register</a></td>
 		<? } else { ?>
 		<td>
-			<a href="index.php">Feed</a> | <a href="subscribe.php">Refs</a> | <a href="file/README.html">README</a> | <a href="logout.php">LOGOUT</a></td>
+			<a href="index.php">Feed</a> | <a href="manage.php">Manage</a> | <a href="file/README.html">README</a> | <a href="logout.php">LOGOUT</a></td>
 	</tr>
 <? } ?>
 </table>
