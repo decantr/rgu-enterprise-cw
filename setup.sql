@@ -14,10 +14,12 @@ CREATE TABLE users (
 	seen DATETIME
 );
 
--- url of the feed
+-- link of the feed
 CREATE TABLE feeds (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  url varchar(255) NOT NULL UNIQUE DEFAULT '',
+	title VARCHAR(64) NOT NULL UNIQUE,
+	summary VARCHAR(512),
+  link varchar(128) NOT NULL UNIQUE,
 	updated DATETIME
 );
 
@@ -26,7 +28,7 @@ CREATE TABLE articles (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	feed_id INT NOT NULL,
 	title VARCHAR (255) NOT NULL,
-	url VARCHAR (255) NOT NULL,
+	link VARCHAR (255) NOT NULL,
 	published DATETIME NOT NULL,
 	summary VARCHAR (511),
 	CONSTRAINT articles_fk_feed FOREIGN KEY (feed_id) REFERENCES feeds (id)
