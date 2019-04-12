@@ -23,9 +23,9 @@ if ( $exists->rowCount() != 0 ) {
 	$feed = Feed::feedFromUrl($feedurl);
 	echo $feed->title;
 
-	$request = "INSERT INTO `feeds` (`title`, `description`, `url`) VALUES ( :title, :description, :url)";
+	$request = "INSERT INTO `feeds` (`title`, `summary`, `link`) VALUES ( :title, :summary, :link)";
 	$statement = $db->prepare($request);
-	$statement->execute( [":title" => $feed->title, ":description" => $feed->summary, ":url" => $feed->link] );
+	$statement->execute( [":title" => $feed->title, ":summary" => $feed->summary, ":link" => $feed->link] );
 }
 }
 } else {
@@ -44,17 +44,16 @@ if ( $exists->rowCount() != 0 ) {
 
 ?>
 
-<!--		js		-->
-
+<!--	imports	-->
 <link rel="stylesheet" type="text/css" href="style.css" />
-
+<script type="text/javascript" src="lib/script.js"></script>
 
 <!--	header	-->
 
 <? include("header.php")?>
 
 <!--	content	-->
-<body onLoad="getFeed()">
+<body onLoad="getSubscriptions()">
 <table><thead>
 <tr>
 	<td><b>Last Activity</b></td>
@@ -69,7 +68,7 @@ if ( $exists->rowCount() != 0 ) {
 	<td id="bottomText" colspan="4">RSS-feed will be displayed here [...]</td>
 </tr>
 </tbody></table>
-&emsp;&emsp;<a href="#" onclick="getFeed()">refresh</a>
+&emsp;&emsp;<a href="#" onclick="getSubscriptions()">refresh</a>
 <br />
 <br />
 <br />
