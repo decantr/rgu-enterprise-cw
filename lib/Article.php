@@ -7,7 +7,7 @@ class Article {
 	public $feed_id;
 	public $title;
 	public $link;
-  public $updated;
+  public $published;
 	public $summary;
 
 	public function __construct() {
@@ -20,7 +20,7 @@ class Article {
 		$this->feed_id = (string) $f;
 		$this->title = (string) $t;
 		$this->link = (string) $l;
-		$this->updated = (string) $d;
+		$this->published = (string) $d;
 		$this->summary = substr( (string) $s, 0, 511 );
 	}
 
@@ -44,7 +44,7 @@ class Article {
 	public static function articleFromRow( $r ) {
 		$instance = new static();
 
-		$instance->setAll( $r["id"], $r["feed_id"], $r["title"], $r["link"], $r["updated"], $r["summary"] );
+		$instance->setAll( $r["id"], $r["feed_id"], $r["title"], $r["link"], $r["published"], $r["summary"] );
 
 		return $instance;
 	}
