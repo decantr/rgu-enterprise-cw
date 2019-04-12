@@ -3,9 +3,10 @@
 require_once "config.php";
 require_once "Feed.php";
 
+$sql = "SELECT `feeds`.`id`, `feeds`.`title`, `feeds`.`summary`, `feeds`.`link`, `feeds`.`updated` FROM `feeds` INNER JOIN `subscriptions` ON `subscriptions`.`feed_id` = `feeds`.`id` WHERE `subscriptions`.`user_id` = :user_id";
 
-$statement = $db->prepare("SELECT * FROM feeds");
-$statement->execute();
+$statement = $db->prepare($sql);
+$statement->execute( [":user_id" => $_SESSION["user_id"]] );
 
 $feeds = array();
 
