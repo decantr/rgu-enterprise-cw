@@ -7,52 +7,15 @@ if (isset($_SESSION["token"])) {
 
 ?>
 
-<!-- js     -->
+<!--	imports	-->
 <link rel="stylesheet" type="text/css" href="style.css" />
-<script>
-function getFeed() {
+<script type="text/javascript" src="lib/script.js"></script>
 
-fetch( "feedreq.php" )
-	.then( (response) => {
-		return response.json()
-	})
-	.then( (res) => {
-		display(res)
-	})
-
-}
-
-function display(content) {
-
-	let str = "";
-	let options = {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'};
-
-	for ( let i of content ) {
-		// TODO : cleanup formatting functions
-		let time = new Date(Date.parse(i.published))
-		time = time.toLocaleString('en-GB', options)
-		time = time.replace( ',' , '')
-		time = time.replace( '/' , '-' )
-		let title = i.title.replace(/<(?:.|\n)*?>/gm, '').slice(0, 60)
-		let source = i.feed_id.replace(/<(?:.|\n)*?>/gm, '').slice(0, 20)
-
-		str += "<tr><td>" + time +
-			"</td><td><a href=" +i.link +
-			">" + title + "</a></td><td>" +
-			source + "</td><td align=\"right\">" +
-			"Star</td><td align=\"right\">Hide</td></tr>"
-	}
-
-	document.getElementById("posttable").innerHTML=str;
-
-}
-</script>
-
-<!-- header -->
+<!--	header	-->
 
 <? include("header.php")?>
 
-<!-- content -->
+<!--	content	-->
 <body onLoad="getFeed()">
 <table><thead>
 <tr>
