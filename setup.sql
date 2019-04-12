@@ -20,7 +20,7 @@ CREATE TABLE feeds (
 	title VARCHAR(64) NOT NULL UNIQUE,
 	summary VARCHAR(512),
   link varchar(128) NOT NULL UNIQUE,
-	updated DATETIME
+	updated DATETIME DEFAULT NOW()
 );
 
 -- article table

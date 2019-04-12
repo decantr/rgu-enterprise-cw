@@ -16,7 +16,7 @@ if (isset($_SESSION["token"])) {
 <? include("header.php")?>
 
 <!--	content	-->
-<body onLoad="getFeed()">
+<body onLoad="getTopArticles()">
 <table><thead>
 <tr>
 	<td><b>Published</b></td>
