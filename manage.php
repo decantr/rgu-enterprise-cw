@@ -10,23 +10,28 @@ $feedurl = trim ( $_POST["feedurl"] );
 if ( empty ( $feedurl ) ) {
 	$error = "No feed given";
 } else {
-	$exists = $db->prepare("SELECT * FROM feeds WHERE `url` = :url");
-	$exists->execute( [":url" => $feedurl ] );
+	$exists = $db->prepare("SELECT * FROM feeds WHERE `link` = :link LIMIT 0, 1");
+	$exists->execute( [":link" => $feedurl ] );
 if ( $exists->rowCount() != 0 ) {
-	$error = "Feed already exists at " . (string) $exists["id"];
-	sleep(1);
-} else {
+	while ( $row = $exists->fetch(PDO::FETCH_ASSOC) ) {
+		$feed = Feed::feedFromRow( $row );
+	}
 
-	//$feed = new Feed($feedurl);
-	$feed = Feed::feedFromUrl($feedurl);
-	echo $feed->title;
+} else {
+	$feed = Feed::feedFromUrl( $feedurl );
 
 	$request = "INSERT INTO `feeds` (`title`, `summary`, `link`) VALUES ( :title, :summary, :link)";
 	$statement = $db->prepare($request);
 	$statement->execute( [":title" => $feed->title, ":summary" => $feed->summary, ":link" => $feed->link] );
+	$feed->id = $db->lastInsertId();
+}
+$request = "INSERT INTO `subscriptions` (`user_id`, `feed_id`) VALUES (:user_id, :feed_id)";
+$statement = $db->prepare( $request );
+$statement->execute([":user_id" => $_SESSION["user_id"], ":feed_id" => $feed->id]);
+$error = "Feed successfully created";
 }
 }
-}
+	//$error = "Feed already exists at " . (string) $exists["id"];
 ?>
 
 <!--	imports	-->

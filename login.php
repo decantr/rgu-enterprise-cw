@@ -17,7 +17,7 @@ if ( empty( trim( $_POST["username"] ) ) ) {
 	$error = "Password cannot be empty";
 } else {
 
-	$request = "select `username`, `password`, `seen` from `users` where `username` = :username";
+	$request = "select `id`, `username`, `password`, `seen` from `users` where `username` = :username";
 	$statement = $db->prepare($request);
 	$statement->execute([":username" => $_POST["username"]]);
 
@@ -37,8 +37,9 @@ if ( ! password_verify( trim ( $_POST["password"] ), $result["password"] ) ) {
 
 	// store data in session variables
 	$_SESSION["token"] = bin2hex( random_bytes(32) );
-	$_SESSION["seen"] = $results["seen"];
+	$_SESSION["seen"] = $result["seen"];
 	$_SESSION["username"] = $_POST["username"];
+	$_SESSION["user_id"] = $result["id"];
 
 	header("location: /");
 }
