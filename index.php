@@ -8,7 +8,7 @@ if (isset($_SESSION["token"])) {
 ?>
 
 <!--	imports	-->
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="lib/style.css" />
 <script type="text/javascript" src="lib/script.js"></script>
 
 <!--	header	-->
@@ -32,6 +32,6 @@ if (isset($_SESSION["token"])) {
 </tr>
 </tbody></table>
 <? if ( $loggedin ) { ?>
-&emsp;&emsp;<a href="#" onclick="getFeed()">refresh</a>
+&emsp;&emsp;<a href="#" onclick="refreshArticles()">refresh</a>
 <? } ?>
 </body>
