@@ -17,6 +17,9 @@ case "unsubscribe":
 case "search":
 	echo json_encode( search( $_GET["s"] ) );
 	break;
+case "hideArticle":
+	hideArticle( $_GET["article_id"] );
+	break;
 default;
 	echo "error" . $_SERVER['QUERY_STRING'];
 }
@@ -43,14 +46,15 @@ function getTopArticles( $qty ) {
 	require_once "Article.php";
 
 	$request =
-		"SELECT `articles`.`id`, `articles`.`feed_id`, `articles`.`title`, `articles`.`summary`, `articles`.`link`, `articles`.`pubDate`, `feeds`.`title` as `channel`
+		"SELECT `articles`.`id`, `articles`.`feed_id`, `articles`.`title`, `articles`.`summary`, `articles`.`link`, `articles`.`pubDate`, `feeds`.`title` AS `channel`
 		FROM `articles`
 		INNER JOIN `subscriptions` ON `subscriptions`.`feed_id` = `articles`.`feed_id`
 		INNER JOIN `feeds` ON `feeds`.`id` = `articles`.`feed_id`
+		LEFT JOIN `hidden` ON `hidden`.`article_id` = `articles`.`id`
 		WHERE `subscriptions`.`user_id` = :user_id
-		ORDER BY `articles`.`pubDate` " .
-		//"DESC LIMIT :amount ";
-		"DESC LIMIT 10";
+			AND `hidden`.`article_id` IS NULL
+		ORDER BY `articles`.`pubDate`
+		DESC LIMIT 10";
 
 	$statement = $db->prepare( $request );
 	$statement->execute([
@@ -146,12 +150,27 @@ function search( $str ) {
 
 // acts as a "read" tracker for user
 function hideArticle( $article_id ) {
+	if ( ! empty( trim ( $article_id ) ) ) {
+	require_once "config.php";
+
+	// check for already hidden
+	$request = "SELECT * FROM `hidden` WHERE `user_id` = :user_id AND `article_id` = :article_id";
+	$statement = $db->prepare( $request );
+	$statement->execute([
+		":user_id" => $_SESSION["user_id"],
+		":article_id" => $article_id,
+	]);
+	if ( $statement->rowCount() == 0 ) {
+
+	// insert into the hidden table
 	$request = "INSERT INTO `hidden` (`user_id`, `article_id`) VALUES (:user_id, :article_id)";
 	$statement = $db->prepare( $request );
 	$statement->execute([
 		":user_id" => $_SESSION["user_id"],
 		":article_id" => $article_id,
- 	]);
+	]);
+	} // else error = it exsists
+	} // else error = nothing supplied
 }
 
 ?>

@@ -1,4 +1,3 @@
 #!/bin/sh
 
-# TODO : "hide" marks as read
-# TODO : implement read
+# TODO : add error reporting
