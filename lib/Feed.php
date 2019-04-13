@@ -29,10 +29,9 @@ class Feed {
 		// get the feed
 		$feed = simplexml_load_file($url);
 		$feed = $feed->channel;
-		$l = $feed->link != "" ? $feed->link : $feed->guid;
 
 		// construct
-		$instance->setAll( null, $feed->title, $feed->description , $l, null );
+		$instance->setAll( null, $feed->title, $feed->description , $url, null );
 		return $instance;
 	}
 

@@ -68,7 +68,6 @@ $error = $error == "" ? $error : $error . "<br />";
 	<td id="bottomText" colspan="4">RSS-feed will be displayed here [...]</td>
 </tr>
 </tbody></table>
-&emsp;&emsp;<a href="#" onclick="getSubscriptions()">refresh</a>
 <br />
 <br />
 <br />
@@ -76,7 +75,7 @@ $error = $error == "" ? $error : $error . "<br />";
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
 	<label for="feedurl">Feed Url</label>
 	<input type="text" name="feedurl" required>
-	<input type="submit" value="Add" name="add">
+	<input onclick="refreshArticles()" type="submit" value="Add" name="add">
 </form>
 <br />
 <span class="error"><?php echo $error ?></span>
