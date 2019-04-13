@@ -21,7 +21,7 @@ class Article {
 		$this->title = (string) $t;
 		$this->link = (string) $l;
 		$this->pubDate = (string) $d;
-		$this->summary = substr( (string) $s, 0, 511 );
+		$this->summary = substr( strip_tags((string) $s), 0, 511 );
 	}
 
 	// make an article from an item (from xml)

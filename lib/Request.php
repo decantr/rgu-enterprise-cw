@@ -66,15 +66,7 @@ $articles = array();
 foreach ( $feed->channel->item as $item ) {
 	$article = Article::articleFromItem( $item , $fid );
 
-	try {
-		json_encode($article);
-	} catch ( Exception $e ) {
-		$article = null;
-		break;
-	}
-
-	if ( $article != null )
-		array_push( $articles, $article );
+	array_push( $articles, $article );
 
 }
 
