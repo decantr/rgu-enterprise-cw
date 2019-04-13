@@ -40,7 +40,7 @@ if ( $statement->rowCount() != 0 ){
 	$statement = $db->prepare($request);
 	$statement->execute( [":username" => $username, ":password" => $password] );
 	$_SESSION["username"] = $username;
-	header("location: /login.php");
+	header("location: /user/login.php");
 }
 }
 }
