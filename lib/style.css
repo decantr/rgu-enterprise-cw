@@ -53,6 +53,7 @@ table thead td {
 }
 
 table td {
+	white-space: nowrap;
 	padding: 0 0.4em;
 }
 
@@ -118,4 +119,24 @@ pre a.h:hover,
 pre a.i:hover,
 pre a.d:hover {
 	text-decoration: none;
+}
+
+.new-section {
+	margin: 3em auto auto 0.6em;
+}
+
+.new-section input {
+	margin: auto auto auto 4.6em;
+}
+
+tfoot {
+	margin-top: 2em;
+}
+
+tfoot tr td input {
+	width: 80%;
+}
+
+thead tr td:nth-of-type(2) {
+	width: 360px;
 }

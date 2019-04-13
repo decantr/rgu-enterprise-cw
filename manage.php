@@ -67,17 +67,20 @@ $error = $error == "" ? $error : $error . "<br />";
 	<td></td>
 	<td id="bottomText" colspan="4">RSS-feed will be displayed here [...]</td>
 </tr>
-</tbody></table>
-<br />
-<br />
-<br />
-<h1>Add New Feed</h1>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-	<label for="feedurl">Feed Url</label>
-	<input id="search" type="text" name="feedurl" onkeyup="showFeeds(this.value)" required>
-	<input onclick="refreshArticles()" type="submit" value="Add" name="add">
-	<div id="searchresults"></div>
+</tbody><tfoot>
+<tr height="20em"></tr>
+<tr>
+	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+	<td><h1>Add New Feed</h1></td>
+	<td align="center" colspan="3">
+		<input id="search" type="text" name="feedurl" onkeyup="showFeeds(this.value)" required>
+	</td>
+	<td align="center">
+		<input onclick="refreshArticles()" type="submit" value="Add" name="add">
+	</td>
+</tr>
 </form>
-<br />
+<tr><td></td><td colspan="1" align="center" id="searchresults"></td><td></td></tr>
+</tfoot></table>
 <span class="error"><?php echo $error ?></span>
 </body>

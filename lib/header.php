@@ -16,7 +16,7 @@
 				<td>&emsp;&emsp;please <a href="/user/login.php">login</a> or <a href="/user/register.php">register</a></td>
 		<? } else { ?>
 		<td>
-			<a href="index.php">Feed</a> | <a href="manage.php">Manage</a> | <a href="file/README.html">README</a> | <a href="/user/logout.php">LOGOUT</a></td>
+			<a href="index.php">Feed</a> | <a href="manage.php">Manage</a> | <a href="https://github.com/decantr/readss/blob/master/README.md">README</a> | <a href="/user/logout.php">LOGOUT</a></td>
 	</tr>
 <? } ?>
 </table>

@@ -26,11 +26,16 @@
 	<td></td>
 	<td id="bottomText" colspan="4">RSS-feed will be displayed here [...]</td>
 </tr>
-</tbody></table>
+</tbody>
+<tfoot>
 <? if ( isset($_SESSION["token"] ) ) { ?>
-<span class="bottom-btn">
-	<a href="#" onclick="refreshArticles()">refresh</a>
-	<a href="#" onclick="getTopArticles( n=n+10 )">more[+]</a>
-</span>
+<tr height="6em"></tr><tr>
+<td>
+<a href="#" onclick="refreshArticles()">refresh</a>
+</td><td colspan="2"><td align="right">
+<a href="#" onclick="getTopArticles( n=n+10 )">more[+]</a>
+</td>
 <? } ?>
+</tfoot>
+</table>
 </body>

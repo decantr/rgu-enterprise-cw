@@ -1,3 +1,5 @@
 #!/bin/sh
 
 # TODO : add error reporting
+# TODO : atom feeds
+# TODO : better repsonse to users
