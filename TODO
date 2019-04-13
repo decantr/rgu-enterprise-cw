@@ -1,6 +1,4 @@
 #!/bin/sh
 
-# TODO : INNER JOIN when getting the articles for the name of the feed
-# TODO : choose the amount to show
 # TODO : "hide" marks as read
 # TODO : implement read

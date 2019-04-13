@@ -37,7 +37,7 @@ class Article {
 		$pd = new DateTime($item->pubDate);
 
 		$instance->setAll(
-			null, $feed_id, $
+			null, $feed_id,
 			$item->title,
 			$item->link != "" ? $item->link : $item->guid,
 			$pd->format("Y-m-d H:i:s"),

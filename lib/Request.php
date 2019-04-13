@@ -6,7 +6,7 @@ case "getSubscribedFeeds":
 	echo json_encode(getSubscribedFeeds());
 	break;
 case "getTopArticles":
-	echo json_encode(getTopArticles());
+	echo json_encode(getTopArticles( $_GET["n"] ));
 	break;
 case "refreshArticles":
 	refreshArticles();
@@ -38,7 +38,7 @@ while ( $row = $statement->fetch(PDO::FETCH_ASSOC) )
 return $feeds;
 }
 
-function getTopArticles( ) {
+function getTopArticles( $qty ) {
 	require_once "config.php";
 	require_once "Article.php";
 
@@ -47,12 +47,16 @@ function getTopArticles( ) {
 		FROM `articles`
 		INNER JOIN `subscriptions` ON `subscriptions`.`feed_id` = `articles`.`feed_id`
 		INNER JOIN `feeds` ON `feeds`.`id` = `articles`.`feed_id`
-		WHERE `subscriptions`.`user_id` = 001
-		ORDER BY `articles`.`pubDate`
-		DESC LIMIT 10";
+		WHERE `subscriptions`.`user_id` = :user_id
+		ORDER BY `articles`.`pubDate` " .
+		//"DESC LIMIT :amount ";
+		"DESC LIMIT 10";
 
 	$statement = $db->prepare( $request );
-	$statement->execute([":user_id" => $_SESSION["user_id"]]);
+	$statement->execute([
+		":user_id" => $_SESSION["user_id"],
+	//	":amount" => 10,
+	]);
 
 	$topFeeds = array();
 	while ($row = $statement->fetch( PDO::FETCH_ASSOC ))
