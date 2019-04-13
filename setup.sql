@@ -45,10 +45,10 @@ CREATE TABLE subscriptions (
 
 -- entries of read articles by the user
 -- should probably make this an unread tracker to reduce overhead
-/*CREATE TABLE read (
+CREATE TABLE hidden (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	user_id INT NOT NULL,
 	article_id INT NOT NULL,
 	CONSTRAINT read_fk_user FOREIGN KEY (user_id) REFERENCES users (id),
-	CONSTRAINT read_fk_article FOREIGN KEY (article_id) REFERENCES article (id)
-);*/
+	CONSTRAINT read_fk_article FOREIGN KEY (article_id) REFERENCES articles (id)
+);
