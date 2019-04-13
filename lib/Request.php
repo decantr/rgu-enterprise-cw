@@ -101,7 +101,7 @@ while ( $row = $statement->fetch(PDO::FETCH_ASSOC) ) {
 		$exists = $db->prepare( "SELECT `id` FROM `articles` WHERE `link` = :link" );
 		$exists->execute([ ":link" => $article->link ]);
 
-		if ( $exist->rowCount() == 0 ) {
+		if ( $exists->rowCount() == 0 ) {
 
 		$insert = $db->prepare("INSERT INTO `articles` (`feed_id`, `title`, `summary`, `link`, `pubDate`) VALUES (:feed_id, :title, :summary, :link, :pubDate)");
 
