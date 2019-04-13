@@ -50,7 +50,7 @@ $error = $error == "" ? $error : $error . "<br />";
 
 <!--	header	-->
 
-<? include("header.php")?>
+<? include("lib/header.php")?>
 
 <!--	content	-->
 <body onLoad="getSubscriptions()">

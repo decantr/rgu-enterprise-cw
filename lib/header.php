@@ -13,7 +13,7 @@
 	<tr>
 		<td></td>
 		<? if ( ! isset( $_SESSION["token"] ) ) { ?>
-				<td>&emsp;&emsp;please <a href="login.php">login</a> or <a href="register.php">register</a></td>
+				<td>&emsp;&emsp;please <a href="/user/login.php">login</a> or <a href="/user/register.php">register</a></td>
 		<? } else { ?>
 		<td>
 			<a href="index.php">Feed</a> | <a href="manage.php">Manage</a> | <a href="file/README.html">README</a> | <a href="logout.php">LOGOUT</a></td>

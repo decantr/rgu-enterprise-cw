@@ -9,7 +9,7 @@ $error = "";
 // if it is a post request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-require_once "lib/config.php";
+require_once "../lib/config.php";
 
 // check if user and password fields are filled
 if ( empty( trim( $_POST["username"] ) ) ) {
@@ -48,9 +48,9 @@ if ( $statement->rowCount() != 0 ){
 $error = $error . "<br />";
 ?>
 
-<link rel="stylesheet" type="text/css" href="lib/style.css" />
+<link rel="stylesheet" type="text/css" href="../lib/style.css" />
 
-<? include("header.php") ?>
+<? include("../lib/header.php") ?>
 
 <form action="" method="POST">
 <h1>Register</h1>

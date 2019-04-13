@@ -9,7 +9,7 @@ $error = $redirect = "";
 // if this is a login request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-require_once "lib/config.php";
+require_once "../lib/config.php";
 
 if ( empty( trim( $_POST["username"] ) ) ) {
 	$error = "Username cannot be empty";
@@ -54,9 +54,8 @@ if ( ! password_verify( trim ( $_POST["password"] ), $result["password"] ) ) {
 $error = $error . "<br />";
 ?>
 
-<link rel="stylesheet" type="text/css" href="lib/style.css" />
-
-<? include("header.php") ?>
+<link rel="stylesheet" type="text/css" href="../lib/style.css" />
+<? include("../lib/header.php") ?>
 
 <form action="" method="POST">
 <h1>Login</h1>
