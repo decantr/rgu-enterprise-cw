@@ -54,13 +54,12 @@ function getTopArticles( $qty ) {
 		WHERE `subscriptions`.`user_id` = :user_id
 			AND `hidden`.`article_id` IS NULL
 		ORDER BY `articles`.`pubDate`
-		DESC LIMIT 10";
+		DESC LIMIT :amount ";
 
 	$statement = $db->prepare( $request );
-	$statement->execute([
-		":user_id" => $_SESSION["user_id"],
-	//	":amount" => 10,
-	]);
+	$statement->bindValue( ":user_id", $_SESSION["user_id"] );
+	$statement->bindValue( ":amount", $qty , PDO::PARAM_INT );
+	$statement->execute();
 
 	$topFeeds = array();
 	while ($row = $statement->fetch( PDO::FETCH_ASSOC ))
