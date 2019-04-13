@@ -4,8 +4,9 @@
 
 <!--	imports	-->
 <link rel="stylesheet" type="text/css" href="lib/style.css" />
+<script type="text/javascript"> var last_seen = "<?php echo $_SESSION["seen"]; ?>";</script>
+<script type="text/javascript"> var n = 10 </script>
 <script type="text/javascript" src="lib/script.js"></script>
-<script> n = 10 </script>
 
 <!--	header	-->
 
