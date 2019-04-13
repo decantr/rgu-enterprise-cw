@@ -144,5 +144,15 @@ function search( $str ) {
 	return $suggestions;
 }
 
+// acts as a "read" tracker for user
+function hideArticle( $article_id ) {
+	$request = "INSERT INTO `hidden` (`user_id`, `article_id`) VALUES (:user_id, :article_id)";
+	$statement = $db->prepare( $request );
+	$statement->execute([
+		":user_id" => $_SESSION["user_id"],
+		":article_id" => $article_id,
+ 	]);
+}
+
 ?>
 
