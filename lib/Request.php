@@ -95,10 +95,14 @@ $statement = $db->prepare(
 $statement->execute( [":user_id" => $_SESSION["user_id"] ]);
 
 while ( $row = $statement->fetch(PDO::FETCH_ASSOC) ) {
-	echo "ROW INNIT";
 	$articles = parseFeed( $row["link"], $row["id"]);
 
 	foreach ( $articles as $article ) {
+		$exists = $db->prepare( "SELECT `id` FROM `articles` WHERE `link` = :link" );
+		$exists->execute([ ":link" => $article->link ]);
+
+		if ( $exist->rowCount() == 0 ) {
+
 		$insert = $db->prepare("INSERT INTO `articles` (`feed_id`, `title`, `summary`, `link`, `pubDate`) VALUES (:feed_id, :title, :summary, :link, :pubDate)");
 
 		$insert->execute([
@@ -108,6 +112,7 @@ while ( $row = $statement->fetch(PDO::FETCH_ASSOC) ) {
 			":link" => $article->link,
 			":pubDate" => $article->pubDate,
 		]);
+		}
 	}
 }
 }
