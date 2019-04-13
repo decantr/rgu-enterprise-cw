@@ -1,10 +1,5 @@
 <? session_start();
 
-$loggedin = false;
-if (isset($_SESSION["token"])) {
-	$loggedin = true;
-}
-
 ?>
 
 <!--	imports	-->
@@ -31,7 +26,7 @@ if (isset($_SESSION["token"])) {
 	<td id="bottomText" colspan="4">RSS-feed will be displayed here [...]</td>
 </tr>
 </tbody></table>
-<? if ( $loggedin ) { ?>
+<? if ( isset($_SESSION["token"] ) ) { ?>
 &emsp;&emsp;<a href="#" onclick="refreshArticles()">refresh</a>
 <? } ?>
 </body>
