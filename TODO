@@ -1,6 +1,5 @@
 #!/bin/sh
 
-# TODO : autocomplete search in the subs box
-# TODO : unsubscribe
+# TODO : autocomplete in subscribe box
 # TODO : logout
 # TODO : INNER JOIN when getting the articles for the name of the feed

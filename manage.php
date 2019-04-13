@@ -60,7 +60,7 @@ $error = $error == "" ? $error : $error . "<br />";
 	<td><b>Title</b></td>
 	<td align="right"><b>Feed ID</b></td>
 	<td align="right"><b>Star</b></td>
-	<td align="right"><b>Remove</b></td>
+	<td align="right"><b>Unsubscribe</b></td>
 </tr>
 </thead><tbody id="posttable" >
 <tr>

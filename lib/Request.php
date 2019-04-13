@@ -1,15 +1,18 @@
 <? session_start();
 
 
-switch ($_SERVER['QUERY_STRING']) {
-case "q=getSubscribedFeeds":
+switch ($_GET["q"]) {
+case "getSubscribedFeeds":
 	echo json_encode(getSubscribedFeeds());
 	break;
-case "q=getTopArticles":
+case "getTopArticles":
 	echo json_encode(getTopArticles());
 	break;
-case "q=refreshArticles":
+case "refreshArticles":
 	refreshArticles();
+	break;
+case "unsubscribe":
+	unsubscribe( $_GET["feed_id"] );
 	break;
 default;
 	echo "error" . $_SERVER['QUERY_STRING'];
@@ -115,6 +118,13 @@ while ( $row = $statement->fetch(PDO::FETCH_ASSOC) ) {
 		}
 	}
 }
+}
+
+function unsubscribe( $feed_id ) {
+	require_once "config.php";
+	// remove entry from subscriptions if it exists
+	$delete = $db->prepare("DELETE FROM `subscriptions` WHERE `feed_id` = :feed_id AND `user_id` = :user_id");
+	$delete->execute([":feed_id" => $feed_id, ":user_id" => $_SESSION["user_id"] ]);
 }
 
 ?>
