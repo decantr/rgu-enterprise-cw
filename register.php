@@ -48,7 +48,7 @@ if ( $statement->rowCount() != 0 ){
 $error = $error . "<br />";
 ?>
 
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="lib/style.css" />
 
 <? include("header.php") ?>
 

@@ -8,7 +8,7 @@ if (isset($_SESSION["token"])) {
 ?>
 
 <!--	imports	-->
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="lib/style.css" />
 <script type="text/javascript" src="lib/script.js"></script>
 
 <!--	header	-->

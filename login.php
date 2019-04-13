@@ -54,7 +54,7 @@ if ( ! password_verify( trim ( $_POST["password"] ), $result["password"] ) ) {
 $error = $error . "<br />";
 ?>
 
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="lib/style.css" />
 
 <? include("header.php") ?>
 
