@@ -14,6 +14,9 @@ case "refreshArticles":
 case "unsubscribe":
 	unsubscribe( $_GET["feed_id"] );
 	break;
+case "search":
+	echo json_encode( search( $_GET["s"] ) );
+	break;
 default;
 	echo "error" . $_SERVER['QUERY_STRING'];
 }
@@ -119,4 +122,23 @@ function unsubscribe( $feed_id ) {
 	$delete->execute([":feed_id" => $feed_id, ":user_id" => $_SESSION["user_id"] ]);
 }
 
+function search( $str ) {
+
+	$suggestions = array();
+
+	if ( ! empty( trim ( $str ) ) ) {
+
+		require_once "config.php";
+		$results = $db->prepare( "SELECT `link` FROM `feeds` WHERE `link` LIKE ?" );
+		$results->execute( [ "%" . $str . "%" ] );
+
+		foreach ( $results as $row ) {
+			array_push( $suggestions , $row );
+		}
+
+	}
+	return $suggestions;
+}
+
 ?>
+

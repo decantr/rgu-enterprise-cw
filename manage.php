@@ -74,8 +74,9 @@ $error = $error == "" ? $error : $error . "<br />";
 <h1>Add New Feed</h1>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
 	<label for="feedurl">Feed Url</label>
-	<input type="text" name="feedurl" required>
+	<input id="search" type="text" name="feedurl" onkeyup="showFeeds(this.value)" required>
 	<input onclick="refreshArticles()" type="submit" value="Add" name="add">
+	<div id="searchresults"></div>
 </form>
 <br />
 <span class="error"><?php echo $error ?></span>
