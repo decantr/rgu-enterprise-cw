@@ -5,13 +5,14 @@ class Article {
 
 	public $id;
 	public $feed_id;
+	public $channel;
 	public $title;
 	public $link;
   public $pubDate;
 	public $summary;
 
 	public function __construct() {
-		$this->id = $this->feed_id = $this->title = $this->link = $this->pubDate = $this->summary = "";
+		$this->id = $this->feed_id = $this->channel = $this->title = $this->link = $this->pubDate = $this->summary = "";
 	}
 
 	// the actual constructor
@@ -24,6 +25,10 @@ class Article {
 		$this->summary = substr( strip_tags((string) $s), 0, 511 );
 	}
 
+	public function setChannel( $c ) {
+		$this->channel = $c;
+	}
+
 	// make an article from an item (from xml)
 	public static function articleFromItem ( $item , $feed_id) {
 		$instance = new static();
@@ -32,7 +37,7 @@ class Article {
 		$pd = new DateTime($item->pubDate);
 
 		$instance->setAll(
-			null, $feed_id,
+			null, $feed_id, $
 			$item->title,
 			$item->link != "" ? $item->link : $item->guid,
 			$pd->format("Y-m-d H:i:s"),
@@ -47,6 +52,7 @@ class Article {
 		$instance = new static();
 
 		$instance->setAll( $r["id"], $r["feed_id"], $r["title"], $r["link"], $r["pubDate"], $r["summary"] );
+		$instance->setChannel ( $r["channel"] );
 		return $instance;
 	}
 

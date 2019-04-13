@@ -43,13 +43,13 @@ function getTopArticles( ) {
 	require_once "Article.php";
 
 	$request =
-		"SELECT `articles`.`id`, `articles`.`feed_id`, `articles`.`title`, `articles`.`summary`, `articles`.`link`, `articles`.`pubDate`
+		"SELECT `articles`.`id`, `articles`.`feed_id`, `articles`.`title`, `articles`.`summary`, `articles`.`link`, `articles`.`pubDate`, `feeds`.`title` as `channel`
 		FROM `articles`
-		INNER JOIN `subscriptions`
-		ON `subscriptions`.`feed_id` = `articles`.`feed_id`
-		WHERE `subscriptions`.`user_id` = :user_id
-		ORDER BY `articles`.`pubDate` DESC
-		LIMIT 10";
+		INNER JOIN `subscriptions` ON `subscriptions`.`feed_id` = `articles`.`feed_id`
+		INNER JOIN `feeds` ON `feeds`.`id` = `articles`.`feed_id`
+		WHERE `subscriptions`.`user_id` = 001
+		ORDER BY `articles`.`pubDate`
+		DESC LIMIT 10";
 
 	$statement = $db->prepare( $request );
 	$statement->execute([":user_id" => $_SESSION["user_id"]]);
