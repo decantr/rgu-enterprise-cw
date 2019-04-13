@@ -29,7 +29,7 @@ CREATE TABLE articles (
 	feed_id INT NOT NULL,
 	title VARCHAR (255) NOT NULL,
 	link VARCHAR (255) NOT NULL,
-	published DATETIME NOT NULL,
+	pubDate DATETIME NOT NULL,
 	summary VARCHAR (511),
 	CONSTRAINT articles_fk_feed FOREIGN KEY (feed_id) REFERENCES feeds (id)
 );

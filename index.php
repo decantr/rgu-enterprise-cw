@@ -32,6 +32,6 @@ if (isset($_SESSION["token"])) {
 </tr>
 </tbody></table>
 <? if ( $loggedin ) { ?>
-&emsp;&emsp;<a href="#" onclick="getFeed()">refresh</a>
+&emsp;&emsp;<a href="#" onclick="refreshArticles()">refresh</a>
 <? } ?>
 </body>

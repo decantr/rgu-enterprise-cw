@@ -7,11 +7,11 @@ class Article {
 	public $feed_id;
 	public $title;
 	public $link;
-  public $published;
+  public $pubDate;
 	public $summary;
 
 	public function __construct() {
-		$this->id = $this->feed_id = $this->title = $this->link = $this->published = $this->summary = "";
+		$this->id = $this->feed_id = $this->title = $this->link = $this->pubDate = $this->summary = "";
 	}
 
 	// the actual constructor
@@ -20,7 +20,7 @@ class Article {
 		$this->feed_id = (string) $f;
 		$this->title = (string) $t;
 		$this->link = (string) $l;
-		$this->published = (string) $d;
+		$this->pubDate = (string) $d;
 		$this->summary = substr( (string) $s, 0, 511 );
 	}
 
@@ -44,7 +44,7 @@ class Article {
 	public static function articleFromRow( $r ) {
 		$instance = new static();
 
-		$instance->setAll( $r["id"], $r["feed_id"], $r["title"], $r["link"], $r["published"], $r["summary"] );
+		$instance->setAll( $r["id"], $r["feed_id"], $r["title"], $r["link"], $r["pubDate"], $r["summary"] );
 
 		return $instance;
 	}
