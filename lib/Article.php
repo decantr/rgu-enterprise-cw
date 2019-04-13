@@ -29,11 +29,13 @@ class Article {
 		$instance = new static();
 
 		// construct from the item we are given
+		$pd = new DateTime($item->pubDate);
+
 		$instance->setAll(
 			null, $feed_id,
 			$item->title,
 			$item->link != "" ? $item->link : $item->guid,
-			$item->pubDate,
+			$pd->format("Y-m-d H:i:s"),
 			$item->description
 		);
 
@@ -45,7 +47,6 @@ class Article {
 		$instance = new static();
 
 		$instance->setAll( $r["id"], $r["feed_id"], $r["title"], $r["link"], $r["pubDate"], $r["summary"] );
-
 		return $instance;
 	}
 
