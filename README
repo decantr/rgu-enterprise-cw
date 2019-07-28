@@ -1,7 +1,42 @@
-READSS
-======
+rgu-ews-cw
+==========
 
-RSS reader created for CM4025.
-The requirement was to create an RSS reader that feautured caching and a
-consolidated list of new articles across all subscrbibed lists.
+this repo contains the code for my submission for CM4025 asking students
+ to create an RSS reader that featured caching and a consolidated list
+ of new articles across all subscribed lists.
+
+
+requirements
+------------
+
+the brief provided required taht this be developed following the
+ MVC (model, view, controller) design pattern.
+
+this required a distinction between the following layers;
+* presentation, developed using HTML, native Javascript and CSS
+* application, developed using PHP
+* data, developed using MySQL
+
+it should be noted that the choice was up to the students discretion as
+ to what languages they would use to fulfull these requirements.
+
+the brief further required a number of a key features to be targeted;
+* a login system
+* individual list of feeds per user
+* adding, removing and modifying of subscribed feeds
+* an consolidated list of feeds
+* front end that allows full access to the API
+with the following features considered "meritorious";
+* proper storing of passwords (salt & hash)
+* feeds since last login highlighted
+* caching of feeds across user accounts
+
+
+installation
+------------
+
+the spec required this was developed using "PHPMyAdmin" for reproducibility
+ however any functioning PHP 7 and MySQL installation should be adequate.
+the required SQL tables and their associated commands can be found in the
+ `setup.sql` file.
 
